@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    tmdb_api:
+        api_key: "9b64022f9a7fd27a896f39bb9852567f"
 
 services:
     # default configuration for services in *this* file
