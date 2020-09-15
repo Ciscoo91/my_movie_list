@@ -3,3 +3,6 @@ easy_admin:
        # List the entity class name you want to manage
        - App\Entity\User
        - App\Entity\User
+   design:
+        menu:
+            - { label: 'Profile', route: 'app_profile' }

@@ -2,4 +2,6 @@
 
 {% block body %}
 <h1>Welcome to you profile {{app.user.username}}</h1>
+<a class="btn btn-warning" href="{{path('app_user_edit', {id: app.user.id})}}">Editer mon profil</a>
+{% dump(app.user.roles[0]) %}
 {% endblock %}

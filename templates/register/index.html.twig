@@ -12,7 +12,11 @@
     {{form_row(form.password.first, {'attr' : {'class': 'form-control', 'id': 'password'}})}}
     {{form_row(form.password.second, {'attr' : {'class': 'form-control', 'id': 'confirm_password'}})}}
     {{form_row(form.email, {'attr' : {'class': 'form-control', 'id': 'email'}})}}
+    {% if editMode %}
+    <input type="submit" class="btn btn-primary mt-3" value="Edit Profile">
+    {% else %}
     <input type="submit" class="btn btn-primary mt-3" value="Register">
+    {% endif %}
     {{form_end(form)}}
 </div>
 {% endblock %}

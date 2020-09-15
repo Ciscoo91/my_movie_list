@@ -14,16 +14,23 @@ class RegisterController extends AbstractController
 {
     /**
      * @Route("/register", name="app_register")
+     * @Route("/user/{id}/edit", name="app_user_edit")
      */
-    public function index(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $password_encoder)
+    public function form(User $user = null, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $password_encoder)
     {
-        $user = new User();
+        // dd($user);
+        if(!$user)
+        {
+            $user = new User();
+        }
+
         $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {   
-            // dd($form->get('password')->getData());
+        
+            $user->setRoles(["ROLE_ADMIN"]);
             $user->setPassword($password_encoder->encodePassword($user, $form->get('password')->getData()));
             $em->persist($user);
             $em->flush();
@@ -33,7 +40,8 @@ class RegisterController extends AbstractController
         }
 
         return $this->render('register/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'editMode' => $user->getId() !== null
         ]);
     }
 }
