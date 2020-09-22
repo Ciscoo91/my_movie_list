@@ -3,10 +3,26 @@
 {% block title %}Movie List{% endblock %}
 
 {% block body %}
-<div class="row">
+<div class="row mt-4">
     <h1 class="mt-5">Welcome to the movie list website</h1>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam quasi eos, nulla distinctio nisi voluptate
         odit. Dignissimos perspiciatis adipisci reiciendis deleniti reprehenderit, enim placeat veniam velit nobis rerum
         blanditiis possimus?</p>
+</div>
+<div class="row justify-content-center">
+    {% for movie in movies %}
+    <div class="col-3">
+        <div class="card mb-3">
+            <img src="https://image.tmdb.org/t/p/w1280/{{movie["poster_path"]}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{movie['title']}}</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                    content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% dump(movies) %}
 </div>
 {% endblock %}

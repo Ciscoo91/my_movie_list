@@ -1,7 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>Welcome to you profile {{app.user.username}}</h1>
-<a class="btn btn-warning" href="{{path('app_user_edit', {id: app.user.id})}}">Editer mon profil</a>
-{% dump(app.user.roles[0]) %}
+<h1 class="my-5">Welcome to you profile {{app.user.username}}</h1>
+<div class="row mb-2">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <p class="display-5">My lists bellow</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Settings</h5>
+                <p class="card-text">Caution with thoose functions</p>
+                <a href="{{path('app_user_unsubscribe', {id: app.user.id})}}" class="btn btn-danger">Unsubscribe</a>
+                <a href="{{path('app_user_edit', {id: app.user.id})}}" class="btn btn-warning">Edit profile</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

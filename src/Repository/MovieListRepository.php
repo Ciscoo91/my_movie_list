@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\MovieList;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method MovieList|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +15,18 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MovieListRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    protected $em;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
     {
         parent::__construct($registry, MovieList::class);
+    }
+
+    public function FindByIdAndDelete($id)
+    {
+        $movie = $this->find($id);
+        $this->em->delete($movie);
+        $this->em->flush();
     }
 
     // /**

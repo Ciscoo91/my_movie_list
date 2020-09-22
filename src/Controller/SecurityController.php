@@ -42,6 +42,7 @@ class SecurityController extends AbstractController
     public function profile()
     {
         $this->denyAccessUnlessGranted("IS_AUTHENTICATED_FULLY");
+        
         return $this->render('security/profile.html.twig');
     }
     
