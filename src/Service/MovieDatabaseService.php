@@ -46,7 +46,7 @@ class MovieDatabaseService {
     {
         $response = $this->client->request(
             'GET',
-            'https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->apikey.'&language=en-US&page=1&total_results=10'
+            'https://api.themoviedb.org/3/movie/popular?api_key='.$this->apikey.'&language=en-US&page=1'
         );
 
         $statusCode = $response->getStatusCode();
@@ -66,5 +66,70 @@ class MovieDatabaseService {
         }
         return $movies;
 
+    }
+
+    public function getMovieGenres()
+    {
+        $response = $this->client->request(
+            'GET',
+            'https://api.themoviedb.org/3/genre/movie/list?api_key='.$this->apikey.'&language=en-US'
+        );
+
+        $statusCode = $response->getStatusCode();
+        $contentTYpe = $response->getHeaders()["content-type"][0];
+        $content = $response->toArray();
+
+        return $content;
+    }
+
+    public function getMoviesByGenre($genre)
+    {
+        $response = $this->client->request(
+            'GET',
+            'https://api.themoviedb.org/3/discover/movie?api_key=$'.$this->apikey.'&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres='.$genre.''
+        );
+    }
+
+    public function getMovieDetailsById($id)
+    {
+        $response = $this->client->request(
+            'GET',
+            'https://api.themoviedb.org/3/movie/'.$id.'?api_key='.$this->apikey.'&language=en-US'
+        );
+
+        $statusCode = $response->getStatusCode();
+        $contentType = $response->getHeaders()["content-type"][0];
+        $content = $response->toArray();
+
+        return $content;
+    }
+
+    public function getMoviesByActor($actor)
+    {
+        $response = $this->client->request(
+            'GET',
+            'https://api.themoviedb.org/3/search/person?api_key='.$this->apikey.'&language=en-US&query='.$actor.'&page=1&include_adult=false'
+        );
+
+        $statusCode = $response->getStatusCode();
+        $contentTYpe = $response->getHeaders()["content-type"][0];
+        $content = $response->toArray();
+
+        return $content;
+    }
+
+
+    public function getMoviesByReleaseDate($date)
+    {
+        $response = $this->client->request(
+            'GET',
+            'https://api.themoviedb.org/3/discover/movie?api_key=9b64022f9a7fd27a896f39bb9852567f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year='.$date
+        );
+
+        $statusCode = $response->getStatusCode();
+        $contentType = $response->getHeaders()["content-type"];
+        $content = $response->toArray();
+
+        return $content;
     }
 }

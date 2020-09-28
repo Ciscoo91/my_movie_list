@@ -10,30 +10,37 @@
         sapiente? Commodi et optio ab, est asperiores enim molestias ipsa distinctio dolorum, amet repudiandae ratione
         atque.
         <div class="row">
-            <form class="form d-flex flex-row justify-content-around align-items-baseline">
+            <form class="form d-flex flex-row justify-content-around align-items-baseline" id="search_form"
+                action="{{path('app_search_movies')}}">
                 <div class="form-group col-6">
                     <input class="form-control" placeholder="Search for movies here" type="search" name="search_movie"
                         id="search_movie">
                 </div>
                 <p class="pl-3 col-2">Filter by: </p>
-                <select class="form-select" name="search_criteria" id="search_criteria">
+                <select class="form-select" name="search_criteria" id="search_criteria_select">
                     <option value="name">name</option>
                     <option value="actor">actor</option>
                     <option value="release_date">release date</option>
-                    <option value="name">name</option>
+                    <option value="type">type</option>
                 </select>
                 <div class="form-group mx-3 mt-2">
                     <input type="submit" value="Search" class="btn btn-primary">
                 </div>
             </form>
         </div>
+        <div id="results" class="row mt-4">
+            {% if movies is defined %}
+            {{ render(controller('App\\Controller\\MovieListController::handleMovieRequest')) }}
+            {% endif %}
+        </div>
     </div>
     <div class="col-2 border-left border-info">
         {% include 'movie_list/partials/_create_movielist_form.html.twig' %}
     </div>
-    <div id="results">
-
-    </div>
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+{{ encore_entry_script_tags('movies_page') }}
 {% endblock %}

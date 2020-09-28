@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+Hello from movie page
+
+<div class="row">
+    {% for movie in movies["results"] %}
+    {% include 'movie/_movies_card.html.twig' %}
+    {% endfor %}
+</div>
+{% endblock %}
