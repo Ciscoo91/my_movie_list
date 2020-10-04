@@ -61,7 +61,7 @@ class MovieListController extends AbstractController
 
         $searchCriteria = $request->request->get("search_criteria");
         $searchValue = $request->request->get("search_movie");
-        dump($request->request);
+        // dump($request->request);
         switch ($searchCriteria) {
             case 'name':
                 $movies = $service->getMoviesByName($searchValue);
@@ -82,7 +82,7 @@ class MovieListController extends AbstractController
             default:
                 break;
         }
-        dump($request->query);
+        dump($request);
         
         return $this->json($movies, 200);
         // return $this->render('/movie/_movies_card.html.twig', [

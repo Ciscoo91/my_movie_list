@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Service\MovieDatabaseService;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Service\MovieDatabaseService;
 
 class MoviesController extends AbstractController {
 
@@ -17,10 +18,11 @@ class MoviesController extends AbstractController {
     }
 
     /** 
-     * @Route("/movie/movie/{id)")
+     * @Route("/movie/details/{id)")
      */
-    public function getMovieById($id)
+    public function getMovieById($id, Request $request)
     {
+        dd($request);
         $movie = $this->movieService->getMovieById($id);
         dump($movie);
         return $this->render('movie/index.html.twig', [
@@ -29,7 +31,7 @@ class MoviesController extends AbstractController {
     }
 
     /**
-     * @Route("/movie/name/{name}")
+     * @Route("/movies/name/{name}")
      */
     public function getMovieByName($name)
     {
