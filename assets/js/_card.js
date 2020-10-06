@@ -19,7 +19,8 @@ export const generateCard = (title, poster_path, overview, id, release_date) => 
     const link = document.createElement("a");
     link.textContent = "See more...";
     link.classList.add("link-info");
-    link.href = `/movie/details/${id}`
+    link.setAttribute("data-id", id);
+    link.style.cursor = "pointer";
     const secondCardParagraph = document.createElement("p");
     secondCardParagraph.classList.add("card-text");
     const smallElt = document.createElement("small");
@@ -41,6 +42,72 @@ export const generateCard = (title, poster_path, overview, id, release_date) => 
 
 }
 
+
+export function getDetailCard(movie) {
+    return `
+        <div class="row">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-2 py-2">
+                    <img class="img-thumbnail" src="https://image.tmdb.org/t/p/w1280/${movie.poster_path}" alt="${movie.title}_movie_poster">
+                </div>
+                <div class="col-md-8 ml-4">
+                    <div class="row">
+                        <div class="card-body">
+                            <table class="table table-borderless py-3 ml-0">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Title</th>
+                                        <td colspan="2">${movie.title}</td>
+                                        <td><a class="display-6 " data-toggle="tooltip" data-placement="top"
+                                                title="Add to favorites" href="">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                                    class="bi bi-star-fill text-warning" fill="currentColor"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                </svg>
+                                            </a></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Produced by</th>
+                                        <td>${movie.producer}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Popularity</th>
+                                        <td colspan="2">${movie.popularity}/100</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Tagline</th>
+                                        <td colspan="2">${movie.tagline}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Release Date</th>
+                                        <td colspan="2">${movie.release_date}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card px-0">
+                    <div class="card-header">
+                        Overview
+                    </div>
+                    <div class="card-body">
+                        ${movie.overview}
+                    </div>
+                    <div class="card-footer text-muted">
+                        <a href="" class="link-info">go the original movie page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+}
 
 
 function* generateMovieCard(data) {

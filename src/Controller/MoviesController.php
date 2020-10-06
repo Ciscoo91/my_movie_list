@@ -17,17 +17,12 @@ class MoviesController extends AbstractController {
         $this->movieService = $movieService;
     }
 
-    /** 
-     * @Route("/movie/details/{id)")
+    /**
+     * @Route("/details/{id}")
      */
-    public function getMovieById($id, Request $request)
+    public function getDetails($id)
     {
-        dd($request);
-        $movie = $this->movieService->getMovieById($id);
-        dump($movie);
-        return $this->render('movie/index.html.twig', [
-            'movie' => $movie
-        ]);
+        return $this->json(["movie" => $this->movieService->getMovieDetailsById($id)], 200);
     }
 
     /**

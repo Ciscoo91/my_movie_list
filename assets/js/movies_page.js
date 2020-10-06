@@ -1,10 +1,4 @@
-// const routes = require('../../public/js/fos_js_routes.json');
-// import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
-
-// Routing.setRoutingData(routes);
-// Routing.generate('rep_log_list');
-
-import { generateCard } from './_card';
+import { generateCard, getDetailCard } from './_card';
 
 const form = document.getElementById("search_form");
 const parentElt = document.getElementById("results");
@@ -14,8 +8,22 @@ const movieCriteriaElt = document.getElementById('search_movie');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    getMovies(searchCriteriaElt.value, movieCriteriaElt.value);
+    getMovies(searchCriteriaElt.value, movieCriteriaElt.value).then(() => {
+        const linksElt = document.querySelectorAll(".link-info");
+
+        console.log(linksElt)
+        linksElt.forEach((link) => {
+            link.addEventListener('click', () => {
+                const id = link.dataset.id;
+                getMovieById(id);
+            })
+        })
+    });
+
 });
+
+
+
 
 async function getMovies(criteria, movie) {
 
@@ -36,6 +44,16 @@ async function getMovies(criteria, movie) {
     }
 
 }
+
+async function getMovieById(id) {
+    parentElt.innerHTML = "";
+    const res = await fetch(`/details/${id}`);
+    const data = await res.json();
+    const card = getDetailCard(data.movie);
+    console.log(data.movie);
+    parentElt.innerHTML = card;
+}
+
 
 function proceedCardGeneration(data) {
     parentElt.innerHTML = "";
